@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:simple_todo_calendar/models/todo_item.dart';
+import 'package:simple_todo_calendar/views/daily_timeline_view.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,40 +12,35 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(title: const Text("Custom Calendar")),
-      body: Column(
-        children: [
-          // Month and Year
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              DateFormat.yMMMM().format(DateTime.now()),
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
+      home: Scaffold(
+          appBar: AppBar(
+            title: const Text("Custom Calendar"),
           ),
-          // Weekday Labels
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-                .map((day) => Text(day,
-                    style: const TextStyle(fontWeight: FontWeight.bold)))
-                .toList(),
-          ),
-          // Calendar Grid
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 7),
-              itemCount: 42, // 6 weeks * 7 days
-              itemBuilder: (context, index) {
-                // Replace with your logic to compute the day
-                return Center(child: Text("${index + 1}"));
-              },
-            ),
-          ),
-        ],
-      ),
-    ));
+          body: DailyTimelineView(
+            selectedDate: DateTime.now(),
+            todoItems: [
+              TodoItem(
+                note: '본가에 폐가전 배출 요청 전화하기',
+                time: DateTime.now(),
+                isDone: false,
+              ),
+              TodoItem(
+                note: '영화 관람',
+                time: DateTime.now(),
+                isDone: false,
+              ),
+              TodoItem(
+                note: '귀가후 카레에 밥 먹기',
+                time: DateTime.now(),
+                isDone: false,
+              ),
+              TodoItem(
+                note: '개발 계획 세우기',
+                time: DateTime.now(),
+                isDone: false,
+              ),
+            ],
+          )),
+    );
   }
 }
