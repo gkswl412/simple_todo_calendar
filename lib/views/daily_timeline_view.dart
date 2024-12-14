@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_todo_calendar/models/todo_item.dart';
+import 'package:simple_todo_calendar/views/todo_card_view.dart';
 
 class DailyTimelineView extends StatefulWidget {
   final DateTime selectedDate;
@@ -40,7 +41,11 @@ class _DailyTimelineViewState extends State<DailyTimelineView> {
               ),
             ),
           ),
-          ...todoItems.map((item) => Text(item.note)),
+          ...todoItems.map(
+            (item) => TodoCardView(
+              todoItem: item,
+            ),
+          ),
         ],
       ),
     );
