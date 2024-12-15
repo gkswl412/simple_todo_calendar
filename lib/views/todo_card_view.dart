@@ -15,11 +15,18 @@ class TodoCardView extends StatefulWidget {
 
 class _TodoCardViewState extends State<TodoCardView> {
   late bool isDone;
+  late String note;
+  bool isEditing = false;
+  late TextEditingController textController;
 
   @override
   void initState() {
     super.initState();
     isDone = widget.todoItem.isDone;
+    note = widget.todoItem.note;
+    textController = TextEditingController(
+      text: note,
+    );
   }
 
   @override
@@ -36,10 +43,14 @@ class _TodoCardViewState extends State<TodoCardView> {
               });
             },
           ),
-          Text(
-            widget.todoItem.note,
-            style: TextStyle(
-              decoration: isDone ? TextDecoration.lineThrough : TextDecoration.none,
+          Expanded(
+            child: TextField(
+              controller: textController,
+              style: TextStyle(
+                decoration:
+                    isDone ? TextDecoration.lineThrough : TextDecoration.none,
+              ),
+              decoration: null,
             ),
           ),
         ],
