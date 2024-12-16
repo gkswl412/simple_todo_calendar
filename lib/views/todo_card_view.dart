@@ -32,25 +32,41 @@ class _TodoCardViewState extends State<TodoCardView> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey,
+          width: 1,
+          style: BorderStyle.solid,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
       padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(
+        vertical: 5,
+      ),
       child: Row(
         children: [
           Checkbox(
             value: isDone,
             onChanged: (value) {
               setState(() {
+                FocusScope.of(context).unfocus();
                 isDone = !isDone;
               });
             },
           ),
           Expanded(
-            child: TextField(
-              controller: textController,
-              style: TextStyle(
-                decoration:
-                    isDone ? TextDecoration.lineThrough : TextDecoration.none,
+            child: Container(
+              child: TextField(
+                controller: textController,
+                style: TextStyle(
+                  decoration:
+                      isDone ? TextDecoration.lineThrough : TextDecoration.none,
+                  fontSize: 20,
+                  height: 2,
+                ),
+                decoration: null,
               ),
-              decoration: null,
             ),
           ),
         ],

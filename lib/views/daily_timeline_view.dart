@@ -29,24 +29,31 @@ class _DailyTimelineViewState extends State<DailyTimelineView> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(8),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Center(
-            child: Text(
-              widget.selectedDate.toIso8601String(),
-              style: const TextStyle(
-                fontSize: 25,
+      child: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Center(
+                child: Text(
+                  widget.selectedDate.toIso8601String(),
+                  style: const TextStyle(
+                    fontSize: 25,
+                  ),
+                ),
               ),
-            ),
+              ...todoItems.map(
+                (item) => TodoCardView(
+                  todoItem: item,
+                ),
+              ),
+            ],
           ),
-          ...todoItems.map(
-            (item) => TodoCardView(
-              todoItem: item,
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
