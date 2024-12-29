@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simple_todo_calendar/models/todo_item.dart';
 import 'package:simple_todo_calendar/views/daily_task_feed_view.dart';
+import 'package:simple_todo_calendar/views/task_input_bar.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,6 +13,17 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        final mediaQuery = MediaQuery.of(context);
+        return MediaQuery(
+          data: mediaQuery.copyWith(
+            textScaler: TextScaler.linear(
+              MediaQuery.textScalerOf(context).scale(1),
+            ),
+          ),
+          child: child!,
+        );
+      },
       home: Scaffold(
         appBar: AppBar(
           title: const Text("Custom Calendar"),
@@ -45,58 +57,7 @@ class MainApp extends StatelessWidget {
             ),
           ],
         ),
-        bottomSheet: Container(
-          color: Colors.white,
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () {
-                  debugPrint('open Calendar!');
-                },
-                icon: const Icon(
-                  Icons.calendar_month_rounded,
-                ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 40,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 7,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: const Color(0xffededed),
-                  ),
-                  child: const TextField(
-                    cursorColor: Colors.blue,
-                    decoration: InputDecoration(
-                      hintText: '할 일 입력',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 15,
-                      ),
-                      contentPadding: EdgeInsets.symmetric(
-                        vertical: 10,
-                        horizontal: 15,
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  debugPrint('Add!');
-                },
-                icon: const Icon(
-                  Icons.add,
-                ),
-              ),
-            ],
-          ),
-        ),
+        bottomSheet: const TaskInputBar(),
       ),
     );
   }
